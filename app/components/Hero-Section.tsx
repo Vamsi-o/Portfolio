@@ -1,5 +1,6 @@
 
 import NavBar from "./NavBar"
+import ScrollingText from "./ScrollingText"
 // import { useRouter   } from "next/navigate"
 export const HeroSection = () => {
     return (
@@ -19,6 +20,8 @@ export const HeroSection = () => {
                     </button>
                 </a>
             </div>
+        <ScrollingText items={['Java', 'React', 'Nextjs', 'Ai ', 'Nodejs' , 'Express' , 'Python' , 'Data structures' , 'Machine Learning']} />
+
         </div>
     )
 }

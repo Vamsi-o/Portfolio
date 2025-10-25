@@ -4,13 +4,13 @@ export const NavBar = () => {
     return (
         <div className=" sticky top-2 flex justify-between items-center bg-black my-4   mx-40 rounded-4xl p-4">
             <div className="text-white font-bold flex items-center gap-3">
-                <Image
+                {/* <Image
                     src="/globe.svg"
                     alt="Products"
                     width={40}
                     height={40}
                     className="rounded-full object-cover w-10 h-10"
-                />
+                /> */}
                 <h1>Hello world</h1>
             </div>
             <div >

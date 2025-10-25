@@ -49,6 +49,7 @@ export const Footer = () => {
                         </svg>
                     </SocialIcon>
                 </div>
+
             </div>
 
             {/* <div>This is from the second one</div> */}
