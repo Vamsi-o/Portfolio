@@ -14,9 +14,11 @@ export const NavBar = () => {
                 <h1>Hello world</h1>
             </div>
             <div >
-                <button className="text-white font-bold cursor-pointer p-2 rounded-2xl bg-[#5a67d8] px-2 hover:bg-[#667eea] transition-colors duration-300 ease-in-out transform hover:scale-105">
-                    Contact us
-                </button>
+                <a href="https://x.com/vamsi__0" target="_blank" rel="noopener noreferrer">
+                    <button className="text-white font-bold cursor-pointer p-2 rounded-2xl bg-[#5a67d8] px-2 hover:bg-[#667eea] transition-colors duration-300 ease-in-out transform hover:scale-105">
+                        Contact us
+                    </button>
+                </a>
             </div>
         </div>
     )
