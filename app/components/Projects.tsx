@@ -1,23 +1,61 @@
 import React from 'react'
+import { Flag, Target, CheckCircle, ArrowDownCircle, Zap } from 'lucide-react';
+import Image from 'next/image';
 
 const Projects = () => {
   return (
-    <div className='w-full'>
-        <div className='border p-6 flex gap-6'>
-            <div className='max-w-xl p-2 border'>
-                <p>Project -1</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias blanditiis reiciendis animi, veritatis sed ipsa quia architecto voluptate, consectetur unde saepe exercitationem soluta accusantium doloribus explicabo aut itaque possimus fugit?</p>
-            </div>
-            <div className='max-w-xl border p-2 h-[inherit]'>
-                <div className='h-full w-[1px] bg-[linear-gradient(to_right,_#090a15,_#16a394_8%,_#16a394_67.02%,_#5a67d8_81.46%,_#5a67d8_86.71%,_#090a15)]'>
-                    <span className='w-full '></span>
+    <div className='w-full h-screen'>
+        <div className='min-h-full p-6 relative'>
+            <span className='absolute h-[90%] w-[1px] left-[50%] bg-[#159f91] -z-1'></span>
+            <div className='z-100 flex flex-col gap-24'>
+                <div className='flex flex-col gap-6 lg:flex-row justify-center p-8 items-center'>
+                    <div className='flex-1 border rounded-lg p-6 bg-white'>
+                        <h1>Project1</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
+                    </div>
+                    <div className='flex-1 bg-white flex justify-center  py-8'>
+                        <Image src={'/HireHawk.jpg'} alt='hirehawk logo' width={50} height={50} className='rounded-full shadow shadow-[0_0_25px_15px_#159f91]'/>
+                        
+                    </div>
+                    <div className='flex-1 border rounded-lg bg-white p-6'>
+                        <h1>Project1</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
+                    </div>
+
+                </div>
+                
+                <div className='flex flex-col gap-6 lg:flex-row justify-center p-8 items-center'>
+                    <div className='flex-1 border rounded-lg bg-white p-6'>
+                        <h1>Project1</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
+                    </div>
+                    <div className='flex-1 bg-white flex justify-center  py-8'>
+                        <Image src={'/Ainfinity.png'} alt='ainfinity logo' width={50} height={50} className='rounded-full shadow shadow-[0_0_25px_15px_#159f91]'/>
+                    </div>
+                    <div className='flex-1 border bg-white rounded-lg p-6'>
+                        <h1>Project1</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
+                    </div>
+
+                </div>
+
+                <div className='flex flex-col gap-6 lg:flex-row justify-center p-8 items-center'>
+                    <div className='flex-1 border rounded-lg bg-white p-6'>
+                        <h1>Project1</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
+                    </div>
+                    <div className='flex-1 bg-white flex justify-center  py-8'>
+                        <Zap size={20} className="text-cyan-300 shadow shadow-[0_0_25px_15px_#159f91]" />
+                    </div>
+                    <div className='flex-1 border bg-white rounded-lg p-6'>
+                        <h1>Project1</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
+                    </div>
+
                 </div>
             </div>
-            <div className='max-w-xl p-2 border'>
-                <p>Project -1</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias blanditiis reiciendis animi, veritatis sed ipsa quia architecto voluptate, consectetur unde saepe exercitationem soluta accusantium doloribus explicabo aut itaque possimus fugit?</p>
-            </div>
         </div>
+        
     </div>
   )
 }
