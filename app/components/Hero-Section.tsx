@@ -3,7 +3,7 @@ import NavBar from "./NavBar"
 // import { useRouter   } from "next/navigate"
 export const HeroSection = () => {
     return (
-        <div className="min-h-screen w-screen flex flex-col bg-[url('/hero.svg')] bg-cover bg-no-repeat">
+        <div className="min-h-screen w-full flex flex-col bg-[url('/hero.svg')] bg-cover bg-no-repeat">
             <nav className="sticky top-0">
                 <NavBar />
             </nav>
