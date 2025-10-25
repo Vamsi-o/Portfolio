@@ -1,62 +1,150 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useRef, useState } from 'react'
 import { Flag, Target, CheckCircle, ArrowDownCircle, Zap } from 'lucide-react';
 import Image from 'next/image';
 
 const Projects = () => {
+    // Declare the missing refs
+    const mainContentRef = useRef<HTMLDivElement | null>(null);
+    const lineProgressRef = useRef<HTMLDivElement | null>(null);
+    const isTicking = useRef<boolean>(false);
+    const latestProgress = useRef<number>(0);
+
+    const useInView = (options: any): [React.RefObject<HTMLDivElement | null>, boolean] => {
+        const ref = useRef<HTMLDivElement | null>(null);
+        const [isInView, setIsInView] = useState(false);
+
+        useEffect(() => {
+            const observer = new IntersectionObserver(([entry]) => {
+                setIsInView(entry.isIntersecting);
+            }, options);
+
+            if (ref.current) {
+                observer.observe(ref.current);
+            }
+
+            return () => {
+                if (ref.current)
+                    observer.unobserve(ref.current);
+            };
+        }, [options]);
+
+        return [ref, isInView];
+    };
+
+    const AnimateElement: React.FC<{ children: React.ReactNode }> = ({children}) => {
+        const [ref, isInView] = useInView({
+            threshold:0.4,
+        })
+
+        return(
+            <div
+            ref={ref}
+            className={`transition-all duration-700 z-20 ease-in-out ${isInView ? 'opacity-100 translate-y-0 scale-90' : 'opacity-0 translate-y-10 scale-80'}`} >
+                {children}
+            </div>
+        )
+    }
+
+    useEffect(() => {
+        const mainEl = mainContentRef.current;
+        const lineEl = lineProgressRef.current;
+
+        if (!mainEl || !lineEl) return;
+        console.log("window height: ",window.innerHeight);
+        console.log("div position: ",mainEl.offsetTop);
+        console.log("div height: ",mainEl.offsetHeight);
+        // Set initial height to 0
+        lineEl.style.height = '10%';
+
+        const updateLine = () => {
+            // Update line height directly based on progress (0% to 90%)
+            lineEl.style.height = `${latestProgress.current * 90}%`;
+            isTicking.current = false;
+        };
+
+        const onScroll = () => {
+            // Get scroll boundaries
+            const scrollStart = mainEl.offsetTop / 2;
+            const scrollEnd = mainEl.offsetTop + mainEl.offsetHeight - window.innerHeight;
+            console.log(scrollEnd);
+            
+            const currentScroll = window.scrollY;
+            console.log("scroll: ",currentScroll);
+            
+            // Calculate progress
+            let progress = (currentScroll - scrollStart) / (scrollEnd - scrollStart);
+            latestProgress.current = Math.max(0, Math.min(1, progress));
+
+            if (!isTicking.current) {
+                window.requestAnimationFrame(updateLine);
+                isTicking.current = true;
+            }
+        };
+
+        // Add scroll listener
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll(); // Run once on load to set initial state
+
+        // Cleanup
+        return () => window.removeEventListener('scroll', onScroll);
+
+    }, []);
+    
   return (
-    <div className='w-full h-screen'>
-        <div className='min-h-full p-6 relative'>
-            <span className='absolute h-[90%] w-[1px] left-[50%] bg-[#159f91] -z-1'></span>
-            <div className='z-100 flex flex-col gap-24'>
-                <div className='flex flex-col gap-6 lg:flex-row justify-center p-8 items-center'>
-                    <div className='flex-1 border rounded-lg p-6 bg-white'>
-                        <h1>Project1</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
-                    </div>
-                    <div className='flex-1 bg-white flex justify-center  py-8'>
-                        <Image src={'/HireHawk.jpg'} alt='hirehawk logo' width={50} height={50} className='rounded-full shadow shadow-[0_0_25px_15px_#159f91]'/>
-                        
-                    </div>
-                    <div className='flex-1 border rounded-lg bg-white p-6'>
-                        <h1>Project1</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
-                    </div>
+  <>
+        <style>{`
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px 10px #159f91; } 
+            50% { box-shadow: 0 0 35px 10px #159f91; }
+            }
 
-                </div>
-                
-                <div className='flex flex-col gap-6 lg:flex-row justify-center p-8 items-center'>
-                    <div className='flex-1 border rounded-lg bg-white p-6'>
-                        <h1>Project1</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
-                    </div>
-                    <div className='flex-1 bg-white flex justify-center  py-8'>
-                        <Image src={'/Ainfinity.png'} alt='ainfinity logo' width={50} height={50} className='rounded-full shadow shadow-[0_0_25px_15px_#159f91]'/>
-                    </div>
-                    <div className='flex-1 border bg-white rounded-lg p-6'>
-                        <h1>Project1</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
-                    </div>
+            .animate-glow {
+            animation: glow 5s ease-in-out infinite; 
+            }`
+        }</style>
+        <div className='w-full h-screen'>
+            <div ref={mainContentRef} className='min-h-full p-6 relative'>
+                <span ref={lineProgressRef} className='absolute w-[1px] left-[50%] bg-[#159f91] transition-height duration-0 ease-linear shadow-[0_0_1px_0.2px_#159f90]'></span>          
+                <div className='z-100 flex flex-col gap-24 bg-transparent'>
+                    <AnimateElement>
+                    <div  className='flex flex-col bg-transparent gap-6 lg:flex-row justify-center p-8 items-center'>
+                        <div className='flex-1 rounded-lg p-6 rounded'>
+                            <img src={'/H_Home.png'} alt='Hirehawk Home' className='w-full rounded'/>
+                        </div>
+                        <div className='flex-1 bg-[#090a15] flex justify-center  py-8'>
+                            <Image src={'/HireHawk.jpg'} alt='hirehawk logo' width={50} height={50} className='rounded-full shadow-[0_0_25px_15px_#159f91] animate-glow'/>
+                            
+                        </div>
+                        <div className='flex-1 border rounded-lg bg-white p-6'>
+                            <h1>Project1</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
+                        </div>
 
-                </div>
+                    </div>
+                    </AnimateElement>
+                    
+                    <AnimateElement>
+                        <div className='flex flex-col gap-6 lg:flex-row justify-center p-8 items-center'>
+                            <div className='flex-1 border rounded-lg bg-white p-6'>
+                                <img src={'A_Home.png'} alt='Ainfinity home' className='w-full rounded'/>
+                            </div>
+                            <div className='flex-1 bg-[#090a15] flex justify-center  py-8'>
+                                <Image src={'/Ainfinity.png'} alt='ainfinity logo' width={50} height={50} className='animate-glow rounded-full shadow shadow-[0_0_25px_15px_#159f91]'/>
+                            </div>
+                            <div className='flex-1 border bg-white rounded-lg p-6'>
+                                <h1>Project1</h1>
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
+                            </div>
 
-                <div className='flex flex-col gap-6 lg:flex-row justify-center p-8 items-center'>
-                    <div className='flex-1 border rounded-lg bg-white p-6'>
-                        <h1>Project1</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
-                    </div>
-                    <div className='flex-1 bg-white flex justify-center  py-8'>
-                        <Zap size={20} className="text-cyan-300 shadow shadow-[0_0_25px_15px_#159f91]" />
-                    </div>
-                    <div className='flex-1 border bg-white rounded-lg p-6'>
-                        <h1>Project1</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
-                    </div>
+                        </div>
+                    </AnimateElement>
 
                 </div>
             </div>
+            
         </div>
-        
-    </div>
+    </>
   )
 }
 
