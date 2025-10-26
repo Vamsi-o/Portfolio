@@ -12,7 +12,7 @@ export const HeroSection = () => {
                 <h1 className="text-white text-7xl font-extrabold">From Idea to Scale.</h1>
                 <h1 className="text-white text-7xl font-extrabold">Simplified.</h1>
                 <h3 className="m-4 text-2xl text-gray-50">Ship at lightning speed, and scale to a global audience.</h3>
-                <h3 className="text-2xl text-gray-200">Effortlessly with our next-gen serverless Postgres database.</h3>
+                <h3 className="text-2xl text-gray-200">Effortlessly with our next-gen Ai Integration .</h3>
 
                 <a href="https://x.com/vamsi__0" target="_black">
                     <button className="m-8 p-4  rounded-2xl text-white bg-[#5a67d8] cursor-pointer hover:bg-[#667eea] transition-colors duration-300 ease-in-out transform hover:scale-120 hover:font-extrabold">

@@ -11,7 +11,7 @@ export const NavBar = () => {
                     height={40}
                     className="rounded-full object-cover w-10 h-10"
                 /> */}
-                <h1>Hello world</h1>
+                <h1>Vamshi</h1>
             </div>
             <div >
                 <a href="https://x.com/vamsi__0" target="_blank" rel="noopener noreferrer">
