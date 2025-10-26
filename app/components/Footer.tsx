@@ -4,7 +4,7 @@ const SocialIcon = ({ children, href, label }: { children: React.ReactNode; href
         target="_blank"
         rel="noopener noreferrer"
         aria-label={label}
-        className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition"
+        className="w-10 h-10  rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition"
     >
         {children}
     </a>
