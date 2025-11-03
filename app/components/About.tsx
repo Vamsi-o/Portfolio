@@ -65,7 +65,7 @@ const About = () => {
                 <div className={`text-center mb-16 transition-all duration-1000 ${
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}>
-                    <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">
+                    <h2 className="text-4xl md:text-5xl font-bold font-display mb-4 text-white ">
                         Know <span className="gradient-text">Me</span>
                     </h2>
                     <p className="text-gray-400 text-lg max-w-2xl mx-auto">
@@ -146,7 +146,7 @@ const About = () => {
                 <div className={`transition-all duration-1000 delay-600 ${
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}>
-                    <h3 className="text-3xl font-bold font-display text-center mb-12">
+                    <h3 className="text-3xl font-bold font-display text-center mb-12 text-white">
                         My <span className="gradient-text">Skills</span>
                     </h3>
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -132,7 +132,7 @@ const Projects = () => {
                 <div className={`text-center mb-16 transition-all duration-1000 ${
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}>
-                    <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">
+                    <h2 className="text-4xl md:text-5xl font-bold font-display mb-4 text-white">
                         What I've <span className="gradient-text">Built</span>
                     </h2>
                     <p className="text-gray-400 text-lg max-w-2xl mx-auto">

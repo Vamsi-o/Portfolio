@@ -26,7 +26,7 @@ export const Footer = () => {
                 {/* Contact Section */}
                 <div className="max-w-4xl mx-auto mb-20">
                     <div className="text-center mb-12">
-                        <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">
+                        <h2 className="text-4xl md:text-5xl font-bold font-display mb-4 text-white">
                             Let's <span className="gradient-text">Connect</span>
                         </h2>
                         <p className="text-gray-400 text-lg">
@@ -47,7 +47,7 @@ export const Footer = () => {
                             </div>
                             <div>
                                 <div className="text-sm text-gray-400 mb-1">Email Me</div>
-                                <div className="text-white font-semibold text-lg">vamshi@example.com</div>
+                                <div className="text-white font-semibold text-lg">iamvamsi0@gmail.com</div>
                             </div>
                         </a>
 
