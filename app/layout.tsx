@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import AnalyticsTracker from "./components/AnalyticsTracker";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -37,7 +39,9 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased font-sans`}
         suppressHydrationWarning
       >
+        <AnalyticsTracker />
         {children}
+        <Analytics />
       </body>
     </html>
   );

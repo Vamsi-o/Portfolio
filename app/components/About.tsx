@@ -169,14 +169,14 @@ const About = () => {
                 </div>
 
                 GitHub Contributions
-                <div className={`transition-all duration-1000 delay-500 ${
+                {/* <div className={`transition-all duration-1000 delay-500 ${
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}>
                     <h3 className="text-3xl font-bold font-display text-center mb-6 text-white">
                         <span className="gradient-text">Open Source</span> Activity
                     </h3>
                     <ContributionGraph username="Vamsi-o" refreshMs={60_000} />
-                </div><br />
+                </div><br /> */}
 
                 {/* Skills Grid */}
                 <div className={`transition-all duration-1000 delay-600 ${
