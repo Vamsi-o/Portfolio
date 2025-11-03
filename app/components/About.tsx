@@ -31,7 +31,7 @@ const About = () => {
             category: 'Frontend',
             icon: '💻',
             items: ['React', 'Next.js', 'TypeScript', 'TailwindCSS', 'HTML/CSS']
-        },
+        }, 
         {
             category: 'Backend',
             icon: '⚙️',

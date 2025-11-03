@@ -14,7 +14,6 @@ export const NavBar = () => {
     }, [])
 
     const navLinks: Array<{ href: string; label: string; external?: boolean }> = [
-        { href: "#about", label: "About" },
         { href: "#projects", label: "Projects" },
         { href: "https://docs.google.com/document/d/e/2PACX-1vRe1fEf2dG5SeA1CH1y__myUNl0tt17wvHnUv-62Peik7VwdUqd3dqt9Vs11TH8i92K1uRDcF45BTXg/pub", label: "Resume", external: true },
         { href: "#contact", label: "Contact" },

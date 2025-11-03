@@ -5,6 +5,12 @@ import Image from 'next/image'
 const Projects = () => {
     const [isVisible, setIsVisible] = useState(false)
     const sectionRef = useRef<HTMLElement>(null)
+    const lineProgressRef = useRef<HTMLDivElement>(null)
+    const projectsContainerRef = useRef<HTMLDivElement>(null)
+    
+    const [lineProgress, setLineProgress] = useState(0)
+    const isTicking = useRef(false)
+    const latestProgress = useRef(0)
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -24,6 +30,39 @@ const Projects = () => {
             if (sectionRef.current) {
                 observer.unobserve(sectionRef.current)
             }
+        }
+    }, [])
+
+    useEffect(() => {
+        const updateLine = () => {
+            setLineProgress(latestProgress.current)
+            isTicking.current = false
+        }
+
+        const onScroll = () => {
+            const sectionEl = sectionRef.current
+            const projectsContainerEl = projectsContainerRef.current
+
+            if (!sectionEl || !projectsContainerEl) return
+
+            const scrollStart = sectionEl.offsetTop
+            const scrollEnd = projectsContainerEl.offsetTop + projectsContainerEl.clientHeight - window.innerHeight
+            const currentScroll = window.scrollY
+
+            let progress = (currentScroll - scrollStart) / (scrollEnd - scrollStart)
+            latestProgress.current = Math.max(0, Math.min(1, progress))
+
+            if (!isTicking.current) {
+                window.requestAnimationFrame(updateLine)
+                isTicking.current = true
+            }
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true })
+        onScroll()
+
+        return () => {
+            window.removeEventListener('scroll', onScroll)
         }
     }, [])
 
@@ -72,8 +111,48 @@ const Projects = () => {
                     </p>
                 </div>
 
-                {/* Projects Grid */}
-                <div className="space-y-12 md:space-y-20">
+                {/* Projects with Animated Line */}
+                <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
+                    {/* Animated Line - Desktop Only */}
+                    <div className="hidden lg:block lg:w-1/12 relative">
+                        <div className="sticky top-32 h-[600px]">
+                            {/* Line Track */}
+                            <div className="absolute left-1/2 -translate-x-1/2 w-1 h-full bg-gray-800 rounded-full">
+                                {/* Animated Progress Line */}
+                                <div 
+                                    ref={lineProgressRef}
+                                    className="absolute top-0 left-0 w-full bg-gradient-to-b from-[#6366f1] to-[#06b6d4] rounded-full transition-all duration-100 ease-linear"
+                                    style={{ 
+                                        height: `${lineProgress * 100}%`,
+                                        boxShadow: '0 0 8px #06b6d4, 0 0 12px #06b6d4'
+                                    }}
+                                />
+                                
+                                {/* Node Markers */}
+                                {projects.map((_, index) => (
+                                    <div
+                                        key={index}
+                                        className="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full transition-all duration-300"
+                                        style={{ 
+                                            top: `${(index + 1) * (100 / (projects.length + 1))}%`,
+                                            background: lineProgress >= (index + 1) / (projects.length + 1) 
+                                                ? 'linear-gradient(135deg, #6366f1, #06b6d4)' 
+                                                : '#374151',
+                                            boxShadow: lineProgress >= (index + 1) / (projects.length + 1)
+                                                ? '0 0 10px #06b6d4, 0 0 15px #06b6d4'
+                                                : 'none',
+                                            transform: lineProgress >= (index + 1) / (projects.length + 1)
+                                                ? 'translateX(-50%) scale(1.2)'
+                                                : 'translateX(-50%) scale(1)'
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Projects Grid */}
+                    <div ref={projectsContainerRef} className="flex-1 space-y-12 md:space-y-20">
                     {projects.map((project, index) => (
                         <div
                             key={project.title}
@@ -195,6 +274,7 @@ const Projects = () => {
                             </div>
                         </div>
                     ))}
+                    </div>
                 </div>
 
                 {/* More Projects CTA */}
