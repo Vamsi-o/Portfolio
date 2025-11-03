@@ -7,8 +7,10 @@ const Projects = () => {
     const sectionRef = useRef<HTMLElement>(null)
     const lineProgressRef = useRef<HTMLDivElement>(null)
     const projectsContainerRef = useRef<HTMLDivElement>(null)
+    const projectRefs = useRef<(HTMLDivElement | null)[]>([])
     
     const [lineProgress, setLineProgress] = useState(0)
+    const [activeProject, setActiveProject] = useState(-1)
     const isTicking = useRef(false)
     const latestProgress = useRef(0)
 
@@ -40,17 +42,40 @@ const Projects = () => {
         }
 
         const onScroll = () => {
-            const sectionEl = sectionRef.current
             const projectsContainerEl = projectsContainerRef.current
 
-            if (!sectionEl || !projectsContainerEl) return
+            if (!projectsContainerEl) return
 
-            const scrollStart = sectionEl.offsetTop
-            const scrollEnd = projectsContainerEl.offsetTop + projectsContainerEl.clientHeight - window.innerHeight
+            // Get the bounding rect of the projects container
+            const rect = projectsContainerEl.getBoundingClientRect()
+            const containerTop = rect.top + window.scrollY
+            const containerHeight = rect.height
+            const viewportHeight = window.innerHeight
+            
+            // Start when container enters viewport, end when it leaves
+            const scrollStart = containerTop - viewportHeight * 0.6
+            const scrollEnd = containerTop + containerHeight - viewportHeight * 0.4
             const currentScroll = window.scrollY
 
+            // Calculate progress between 0 and 1
             let progress = (currentScroll - scrollStart) / (scrollEnd - scrollStart)
             latestProgress.current = Math.max(0, Math.min(1, progress))
+
+            // Track which project is currently in view
+            let currentActive = -1
+            projectRefs.current.forEach((ref, index) => {
+                if (ref) {
+                    const projectRect = ref.getBoundingClientRect()
+                    const projectMiddle = projectRect.top + projectRect.height / 2
+                    const viewportMiddle = viewportHeight / 2
+                    
+                    // Check if project middle is near viewport middle
+                    if (Math.abs(projectMiddle - viewportMiddle) < viewportHeight * 0.4) {
+                        currentActive = index
+                    }
+                }
+            })
+            setActiveProject(currentActive)
 
             if (!isTicking.current) {
                 window.requestAnimationFrame(updateLine)
@@ -59,10 +84,14 @@ const Projects = () => {
         }
 
         window.addEventListener('scroll', onScroll, { passive: true })
-        onScroll()
+        window.addEventListener('resize', onScroll, { passive: true })
+        
+        // Initial call with slight delay to ensure layout is ready
+        setTimeout(onScroll, 100)
 
         return () => {
             window.removeEventListener('scroll', onScroll)
+            window.removeEventListener('resize', onScroll)
         }
     }, [])
 
@@ -73,8 +102,8 @@ const Projects = () => {
             image: '/H_Home.png',
             logo: '/HireHawk.jpg',
             tags: ['Next.js', 'AI/ML', 'Node.js', 'MongoDB', 'TailwindCSS'],
-            link: '#',
-            github: '#',
+            link: 'https://dev-hire-znlr.vercel.app/',
+            github: 'https://github.com/Dev-Pross/DevHire',
             gradient: 'from-emerald-500 to-teal-500'
         },
         {
@@ -83,8 +112,8 @@ const Projects = () => {
             image: '/A_Home.png',
             logo: '/Ainfinity.png',
             tags: ['React', 'Python', 'TensorFlow', 'FastAPI', 'Docker'],
-            link: '#',
-            github: '#',
+            link: 'https://post-generator-iota.vercel.app/',
+            github: 'https://github.com/Vamsi-o/SocialMedia-Post-Generator',
             gradient: 'from-purple-500 to-pink-500'
         }
     ]
@@ -114,39 +143,48 @@ const Projects = () => {
                 {/* Projects with Animated Line */}
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
                     {/* Animated Line - Desktop Only */}
-                    <div className="hidden lg:block lg:w-1/12 relative">
-                        <div className="sticky top-32 h-[600px]">
+                    <div className="hidden lg:block lg:w-20 relative flex-shrink-0">
+                        <div className="sticky top-32 h-[70vh] flex items-center justify-center">
                             {/* Line Track */}
-                            <div className="absolute left-1/2 -translate-x-1/2 w-1 h-full bg-gray-800 rounded-full">
+                            <div className="relative w-1 h-full bg-gray-800/50 rounded-full">
                                 {/* Animated Progress Line */}
                                 <div 
                                     ref={lineProgressRef}
-                                    className="absolute top-0 left-0 w-full bg-gradient-to-b from-[#6366f1] to-[#06b6d4] rounded-full transition-all duration-100 ease-linear"
+                                    className="absolute top-0 left-0 w-full bg-linear-to-b from-[#6366f1] to-[#06b6d4] rounded-full transition-all duration-75 ease-out"
                                     style={{ 
                                         height: `${lineProgress * 100}%`,
-                                        boxShadow: '0 0 8px #06b6d4, 0 0 12px #06b6d4'
+                                        boxShadow: lineProgress > 0 ? '0 0 10px rgba(99, 102, 241, 0.6), 0 0 20px rgba(6, 182, 212, 0.4)' : 'none'
                                     }}
                                 />
                                 
                                 {/* Node Markers */}
-                                {projects.map((_, index) => (
-                                    <div
-                                        key={index}
-                                        className="absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full transition-all duration-300"
-                                        style={{ 
-                                            top: `${(index + 1) * (100 / (projects.length + 1))}%`,
-                                            background: lineProgress >= (index + 1) / (projects.length + 1) 
-                                                ? 'linear-gradient(135deg, #6366f1, #06b6d4)' 
-                                                : '#374151',
-                                            boxShadow: lineProgress >= (index + 1) / (projects.length + 1)
-                                                ? '0 0 10px #06b6d4, 0 0 15px #06b6d4'
-                                                : 'none',
-                                            transform: lineProgress >= (index + 1) / (projects.length + 1)
-                                                ? 'translateX(-50%) scale(1.2)'
-                                                : 'translateX(-50%) scale(1)'
-                                        }}
-                                    />
-                                ))}
+                                {projects.map((_, index) => {
+                                    const nodePosition = (index + 1) / (projects.length + 1)
+                                    const isActive = lineProgress >= nodePosition
+                                    const isClose = Math.abs(lineProgress - nodePosition) < 0.1
+                                    
+                                    return (
+                                        <div
+                                            key={index}
+                                            className="absolute left-1/2 -translate-x-1/2 rounded-full transition-all duration-300"
+                                            style={{ 
+                                                top: `${nodePosition * 100}%`,
+                                                width: isActive ? '16px' : '12px',
+                                                height: isActive ? '16px' : '12px',
+                                                background: isActive 
+                                                    ? 'linear-gradient(135deg, #6366f1, #06b6d4)' 
+                                                    : '#374151',
+                                                boxShadow: isActive
+                                                    ? '0 0 12px rgba(99, 102, 241, 0.8), 0 0 20px rgba(6, 182, 212, 0.6)'
+                                                    : 'none',
+                                                transform: isActive || isClose
+                                                    ? 'translateX(-50%) translateY(-50%) scale(1.2)'
+                                                    : 'translateX(-50%) translateY(-50%) scale(1)',
+                                                border: isActive ? '2px solid rgba(255, 255, 255, 0.3)' : '2px solid transparent'
+                                            }}
+                                        />
+                                    )
+                                })}
                             </div>
                         </div>
                     </div>
@@ -156,6 +194,7 @@ const Projects = () => {
                     {projects.map((project, index) => (
                         <div
                             key={project.title}
+                            ref={(el) => { projectRefs.current[index] = el }}
                             className={`transition-all duration-1000 delay-${index * 200} ${
                                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                             }`}

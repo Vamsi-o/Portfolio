@@ -13,10 +13,10 @@ export const NavBar = () => {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
-    const navLinks: Array<{ href: string; label: string; external?: boolean }> = [
+    const navLinks: Array<{ href: string; label: string; external?: boolean; highlight?: boolean }> = [
         { href: "#projects", label: "Projects" },
         { href: "https://docs.google.com/document/d/e/2PACX-1vRe1fEf2dG5SeA1CH1y__myUNl0tt17wvHnUv-62Peik7VwdUqd3dqt9Vs11TH8i92K1uRDcF45BTXg/pub", label: "Resume", external: true },
-        { href: "#contact", label: "Contact" },
+        { href: "#contact", label: "Contact Me", highlight: true },
     ]
 
     return (
@@ -40,15 +40,25 @@ export const NavBar = () => {
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-8">
                         {navLinks.map((link) => (
-                            <a
-                                key={link.href}
-                                href={link.href}
-                                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                                className="text-gray-300 hover:text-white transition-colors duration-200 font-medium relative group"
-                            >
-                                {link.label}
-                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-[#6366f1] to-[#06b6d4] group-hover:w-full transition-all duration-300"></span>
-                            </a>
+                            link.highlight ? (
+                                <a
+                                    key={link.href}
+                                    href={link.href}
+                                    className="px-6 py-2.5 rounded-full bg-linear-to-r from-[#6366f1] to-[#06b6d4] text-white font-semibold hover:shadow-lg hover:shadow-[#6366f1]/50 transition-all duration-300 transform hover:scale-105"
+                                >
+                                    {link.label}
+                                </a>
+                            ) : (
+                                <a
+                                    key={link.href}
+                                    href={link.href}
+                                    {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                    className="text-gray-300 hover:text-white transition-colors duration-200 font-medium relative group"
+                                >
+                                    {link.label}
+                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-[#6366f1] to-[#06b6d4] group-hover:w-full transition-all duration-300"></span>
+                                </a>
+                            )
                         ))}
                     </div>
 
@@ -80,15 +90,26 @@ export const NavBar = () => {
                 {isMobileMenuOpen && (
                     <div className="md:hidden py-4 space-y-3 animate-fade-in-up">
                         {navLinks.map((link) => (
-                            <a
-                                key={link.href}
-                                href={link.href}
-                                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="block text-gray-300 hover:text-white transition-colors duration-200 font-medium py-2 px-4 rounded-lg hover:bg-white/5"
-                            >
-                                {link.label}
-                            </a>
+                            link.highlight ? (
+                                <a
+                                    key={link.href}
+                                    href={link.href}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="block w-full px-6 py-3 rounded-full bg-linear-to-r from-[#6366f1] to-[#06b6d4] text-white font-semibold text-center"
+                                >
+                                    {link.label}
+                                </a>
+                            ) : (
+                                <a
+                                    key={link.href}
+                                    href={link.href}
+                                    {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="block text-gray-300 hover:text-white transition-colors duration-200 font-medium py-2 px-4 rounded-lg hover:bg-white/5"
+                                >
+                                    {link.label}
+                                </a>
+                            )
                         ))}
                     </div>
                 )}
