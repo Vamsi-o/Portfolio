@@ -1,26 +1,116 @@
-import Image from "next/image"
+'use client'
+import { useState, useEffect } from "react"
 
 export const NavBar = () => {
+    const [isScrolled, setIsScrolled] = useState(false)
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50)
+        }
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
+
+    const navLinks: Array<{ href: string; label: string; external?: boolean }> = [
+        { href: "#home", label: "Home" },
+        { href: "#about", label: "About" },
+        { href: "#projects", label: "Projects" },
+        { href: "https://docs.google.com/document/d/e/2PACX-1vRe1fEf2dG5SeA1CH1y__myUNl0tt17wvHnUv-62Peik7VwdUqd3dqt9Vs11TH8i92K1uRDcF45BTXg/pub", label: "Resume", external: true },
+        { href: "#contact", label: "Contact" },
+    ]
+
     return (
-        <div className=" sticky top-2 flex justify-between items-center bg-black my-4   mx-40 rounded-4xl p-4">
-            <div className="text-white font-bold flex items-center gap-3">
-                {/* <Image
-                    src="/globe.svg"
-                    alt="Products"
-                    width={40}
-                    height={40}
-                    className="rounded-full object-cover w-10 h-10"
-                /> */}
-                <h1>Vamshi</h1>
-            </div>
-            <div >
-                <a href="https://x.com/vamsi__0" target="_blank" rel="noopener noreferrer">
-                    <button className="text-white font-bold cursor-pointer p-2 rounded-2xl bg-[#5a67d8] px-2 hover:bg-[#667eea] transition-colors duration-300 ease-in-out transform hover:scale-105">
-                        Contact us
+        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+            isScrolled ? 'py-4' : 'py-6'
+        }`}>
+            <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
+                isScrolled ? 'glass-dark rounded-2xl' : ''
+            }`}>
+                <div className="flex justify-between items-center py-3">
+                    {/* Logo */}
+                    <a href="#home" className="flex items-center gap-3 group">
+                        <div className="w-10 h-10 rounded-full bg-linear-to-br from-[#6366f1] to-[#06b6d4] flex items-center justify-center font-bold text-white text-lg group-hover:scale-110 transition-transform">
+                            V
+                        </div>
+                        <h1 className="text-white font-bold text-xl font-display hidden sm:block">
+                            Vamshi
+                        </h1>
+                    </a>
+
+                    {/* Desktop Navigation */}
+                    <div className="hidden md:flex items-center gap-8">
+                        {navLinks.map((link) => (
+                            <a
+                                key={link.href}
+                                href={link.href}
+                                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                className="text-gray-300 hover:text-white transition-colors duration-200 font-medium relative group"
+                            >
+                                {link.label}
+                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-[#6366f1] to-[#06b6d4] group-hover:w-full transition-all duration-300"></span>
+                            </a>
+                        ))}
+                    </div>
+
+                    {/* CTA Button */}
+                    <div className="hidden md:block">
+                        <a href="#contact">
+                            <button className="px-6 py-2.5 rounded-full bg-linear-to-r from-[#6366f1] to-[#06b6d4] text-white font-semibold hover:shadow-lg hover:shadow-[#6366f1]/50 transition-all duration-300 transform hover:scale-105">
+                                Let's Talk
+                            </button>
+                        </a>
+                    </div>
+
+                    {/* Mobile Menu Button */}
+                    <button
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
+                        aria-label="Toggle menu"
+                    >
+                        <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            {isMobileMenuOpen ? (
+                                <path d="M6 18L18 6M6 6l12 12" />
+                            ) : (
+                                <path d="M4 6h16M4 12h16M4 18h16" />
+                            )}
+                        </svg>
                     </button>
-                </a>
+                </div>
+
+                {/* Mobile Menu */}
+                {isMobileMenuOpen && (
+                    <div className="md:hidden py-4 space-y-3 animate-fade-in-up">
+                        {navLinks.map((link) => (
+                            <a
+                                key={link.href}
+                                href={link.href}
+                                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="block text-gray-300 hover:text-white transition-colors duration-200 font-medium py-2 px-4 rounded-lg hover:bg-white/5"
+                            >
+                                {link.label}
+                            </a>
+                        ))}
+                        <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+                            <button className="w-full px-6 py-2.5 rounded-full bg-linear-to-r from-[#6366f1] to-[#06b6d4] text-white font-semibold">
+                                Let's Talk
+                            </button>
+                        </a>
+                    </div>
+                )}
             </div>
-        </div>
+        </nav>
     )
 }
+
 export default NavBar

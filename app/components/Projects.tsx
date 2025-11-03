@@ -1,151 +1,243 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
-import { Flag, Target, CheckCircle, ArrowDownCircle, Zap } from 'lucide-react';
-import Image from 'next/image';
+import Image from 'next/image'
 
 const Projects = () => {
-    // Declare the missing refs
-    const mainContentRef = useRef<HTMLDivElement | null>(null);
-    const lineProgressRef = useRef<HTMLDivElement | null>(null);
-    const isTicking = useRef<boolean>(false);
-    const latestProgress = useRef<number>(0);
-
-    const useInView = (options: any): [React.RefObject<HTMLDivElement | null>, boolean] => {
-        const ref = useRef<HTMLDivElement | null>(null);
-        const [isInView, setIsInView] = useState(false);
-
-        useEffect(() => {
-            const observer = new IntersectionObserver(([entry]) => {
-                setIsInView(entry.isIntersecting);
-            }, options);
-
-            if (ref.current) {
-                observer.observe(ref.current);
-            }
-
-            return () => {
-                if (ref.current)
-                    observer.unobserve(ref.current);
-            };
-        }, [options]);
-
-        return [ref, isInView];
-    };
-
-    const AnimateElement: React.FC<{ children: React.ReactNode }> = ({children}) => {
-        const [ref, isInView] = useInView({
-            threshold:0.4,
-        })
-
-        return(
-            <div
-            ref={ref}
-            className={`transition-all duration-700 z-20 ease-in-out ${isInView ? 'opacity-100 translate-y-0 scale-90' : 'opacity-0 translate-y-10 scale-80'}`} >
-                {children}
-            </div>
-        )
-    }
+    const [isVisible, setIsVisible] = useState(false)
+    const sectionRef = useRef<HTMLElement>(null)
 
     useEffect(() => {
-        const mainEl = mainContentRef.current;
-        const lineEl = lineProgressRef.current;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true)
+                }
+            },
+            { threshold: 0.1 }
+        )
 
-        if (!mainEl || !lineEl) return;
-        console.log("window height: ",window.innerHeight);
-        console.log("div position: ",mainEl.offsetTop);
-        console.log("div height: ",mainEl.offsetHeight);
-        // Set initial height to 0
-        lineEl.style.height = '10%';
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current)
+        }
 
-        const updateLine = () => {
-            // Update line height directly based on progress (0% to 90%)
-            lineEl.style.height = `${latestProgress.current * 90}%`;
-            isTicking.current = false;
-        };
-
-        const onScroll = () => {
-            // Get scroll boundaries
-            const scrollStart = mainEl.offsetTop / 2;
-            const scrollEnd = mainEl.offsetTop + mainEl.offsetHeight - window.innerHeight;
-            console.log(scrollEnd);
-            
-            const currentScroll = window.scrollY;
-            console.log("scroll: ",currentScroll);
-            
-            // Calculate progress
-            let progress = (currentScroll - scrollStart) / (scrollEnd - scrollStart);
-            latestProgress.current = Math.max(0, Math.min(1, progress));
-
-            if (!isTicking.current) {
-                window.requestAnimationFrame(updateLine);
-                isTicking.current = true;
+        return () => {
+            if (sectionRef.current) {
+                observer.unobserve(sectionRef.current)
             }
-        };
+        }
+    }, [])
 
-        // Add scroll listener
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll(); // Run once on load to set initial state
+    const projects = [
+        {
+            title: 'HireHawk',
+            description: 'An AI-powered recruitment platform that streamlines the hiring process. Features intelligent candidate matching, automated screening, and real-time analytics to help companies find the perfect talent faster.',
+            image: '/H_Home.png',
+            logo: '/HireHawk.jpg',
+            tags: ['Next.js', 'AI/ML', 'Node.js', 'MongoDB', 'TailwindCSS'],
+            link: '#',
+            github: '#',
+            gradient: 'from-emerald-500 to-teal-500'
+        },
+        {
+            title: 'Ainfinity',
+            description: 'A comprehensive AI platform offering multiple AI services including text generation, image creation, and data analysis. Built with scalability and performance in mind for enterprise-level solutions.',
+            image: '/A_Home.png',
+            logo: '/Ainfinity.png',
+            tags: ['React', 'Python', 'TensorFlow', 'FastAPI', 'Docker'],
+            link: '#',
+            github: '#',
+            gradient: 'from-purple-500 to-pink-500'
+        },
+        {
+            title: 'Portfolio Website',
+            description: 'A modern, responsive portfolio website built with Next.js and TailwindCSS. Features smooth animations, glassmorphic design, and optimized performance. Showcases projects and skills with an elegant, tech-focused aesthetic.',
+            image: '/portfolio-preview.png',
+            logo: '/logo.png',
+            tags: ['Next.js', 'TypeScript', 'TailwindCSS', 'Framer Motion'],
+            link: '#',
+            github: 'https://github.com/Vamsi-o/Portfolio',
+            gradient: 'from-blue-500 to-cyan-500'
+        }
+    ]
 
-        // Cleanup
-        return () => window.removeEventListener('scroll', onScroll);
+    return (
+        <section 
+            id="projects"
+            ref={sectionRef}
+            className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
+        >
+            {/* Background */}
+            <div className="absolute inset-0 grid-background opacity-30"></div>
 
-    }, []);
-    
-  return (
-  <>
-        <style>{`
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px 10px #159f91; } 
-            50% { box-shadow: 0 0 35px 10px #159f91; }
-            }
+            <div className="relative max-w-7xl mx-auto">
+                {/* Section Header */}
+                <div className={`text-center mb-16 transition-all duration-1000 ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}>
+                    <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">
+                        Featured <span className="gradient-text">Projects</span>
+                    </h2>
+                    <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                        Here are some of my recent works that showcase my skills and passion
+                    </p>
+                </div>
 
-            .animate-glow {
-            animation: glow 5s ease-in-out infinite; 
-            }`
-        }</style>
-        <div className='w-full h-screen'>
-            <div ref={mainContentRef} className='min-h-full p-6 relative'>
-                <span ref={lineProgressRef} className='absolute w-[1px] left-[50%] bg-[#159f91] transition-height duration-0 ease-linear shadow-[0_0_1px_0.2px_#159f90]'></span>          
-                <div className='z-100 flex flex-col gap-24 bg-transparent'>
-                    <AnimateElement>
-                    <div  className='flex flex-col bg-transparent gap-6 lg:flex-row justify-center p-8 items-center'>
-                        <div className='flex-1 rounded-lg p-6 rounded'>
-                            <img src={'/H_Home.png'} alt='Hirehawk Home' className='w-full rounded'/>
-                        </div>
-                        <div className='flex-1 bg-[#090a15] flex justify-center  py-8'>
-                            <Image src={'/HireHawk.jpg'} alt='hirehawk logo' width={50} height={50} className='rounded-full shadow-[0_0_25px_15px_#159f91] animate-glow'/>
-                            
-                        </div>
-                        <div className='flex-1 border rounded-lg bg-white p-6'>
-                            <h1>Project1</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
-                        </div>
+                {/* Projects Grid */}
+                <div className="space-y-12 md:space-y-20">
+                    {projects.map((project, index) => (
+                        <div
+                            key={project.title}
+                            className={`transition-all duration-1000 delay-${index * 200} ${
+                                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                            }`}
+                        >
+                            <div className={`grid lg:grid-cols-2 gap-8 items-center ${
+                                index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+                            }`}>
+                                {/* Project Image */}
+                                <div className={`relative group ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                                    <div className="glass rounded-2xl overflow-hidden hover-lift">
+                                        <div className="relative aspect-video overflow-hidden">
+                                            <Image
+                                                src={project.image}
+                                                alt={`${project.title} screenshot`}
+                                                fill
+                                                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                            />
+                                            {/* Overlay */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                                                <div className="flex gap-4">
+                                                    <a
+                                                        href={project.link}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="px-4 py-2 rounded-full glass border border-white/20 text-white text-sm font-semibold hover:bg-white/20 transition-all"
+                                                    >
+                                                        Live Demo
+                                                    </a>
+                                                    <a
+                                                        href={project.github}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="px-4 py-2 rounded-full glass border border-white/20 text-white text-sm font-semibold hover:bg-white/20 transition-all"
+                                                    >
+                                                        GitHub
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* Decorative Element */}
+                                    <div className={`absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-to-br ${project.gradient} opacity-20 blur-2xl rounded-full animate-float`}></div>
+                                </div>
 
-                    </div>
-                    </AnimateElement>
-                    
-                    <AnimateElement>
-                        <div className='flex flex-col gap-6 lg:flex-row justify-center p-8 items-center'>
-                            <div className='flex-1 border rounded-lg bg-white p-6'>
-                                <img src={'A_Home.png'} alt='Ainfinity home' className='w-full rounded'/>
+                                {/* Project Info */}
+                                <div className={`space-y-6 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+                                    {/* Logo & Title */}
+                                    <div className="flex items-center gap-4">
+                                        <div className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${project.gradient} p-0.5 animate-glow-pulse`}>
+                                            <div className="w-full h-full rounded-2xl overflow-hidden bg-[#0a0b14] p-2">
+                                                <Image
+                                                    src={project.logo}
+                                                    alt={`${project.title} logo`}
+                                                    width={48}
+                                                    height={48}
+                                                    className="w-full h-full object-cover rounded-xl"
+                                                />
+                                            </div>
+                                        </div>
+                                        <h3 className="text-3xl font-bold text-white font-display">
+                                            {project.title}
+                                        </h3>
+                                    </div>
+
+                                    {/* Description */}
+                                    <p className="text-gray-300 leading-relaxed text-lg">
+                                        {project.description}
+                                    </p>
+
+                                    {/* Tech Stack */}
+                                    <div className="flex flex-wrap gap-2">
+                                        {project.tags.map((tag) => (
+                                            <span
+                                                key={tag}
+                                                className="px-4 py-2 rounded-full glass border border-white/10 text-sm text-gray-300 hover:border-white/30 transition-colors"
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+
+                                    {/* Action Buttons */}
+                                    <div className="flex gap-4 pt-4">
+                                        <a
+                                            href={project.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="group px-6 py-3 rounded-full bg-gradient-to-r from-[#6366f1] to-[#06b6d4] text-white font-semibold hover:shadow-lg hover:shadow-[#6366f1]/50 transition-all duration-300 flex items-center gap-2"
+                                        >
+                                            View Project
+                                            <svg 
+                                                className="w-4 h-4 group-hover:translate-x-1 transition-transform" 
+                                                fill="none" 
+                                                strokeLinecap="round" 
+                                                strokeLinejoin="round" 
+                                                strokeWidth="2" 
+                                                viewBox="0 0 24 24" 
+                                                stroke="currentColor"
+                                            >
+                                                <path d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                            </svg>
+                                        </a>
+                                        <a
+                                            href={project.github}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="px-6 py-3 rounded-full glass border border-white/20 text-white font-semibold hover:bg-white/10 transition-all duration-300 flex items-center gap-2"
+                                        >
+                                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                                <path fillRule="evenodd" d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.238 1.84 1.238 1.07 1.834 2.807 1.305 3.492.998.108-.775.418-1.305.76-1.605-2.665-.3-5.467-1.332-5.467-5.93 0-1.31.468-2.38 1.235-3.22-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23A11.52 11.52 0 0112 5.8c1.02.004 2.045.137 3.003.402 2.291-1.552 3.297-1.23 3.297-1.23.654 1.653.242 2.873.12 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.625-5.48 5.922.43.37.815 1.102.815 2.222 0 1.606-.015 2.896-.015 3.286 0 .32.216.694.825.576C20.565 21.796 24 17.297 24 12c0-6.63-5.37-12-12-12z" clipRule="evenodd" />
+                                            </svg>
+                                            Source Code
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                            <div className='flex-1 bg-[#090a15] flex justify-center  py-8'>
-                                <Image src={'/Ainfinity.png'} alt='ainfinity logo' width={50} height={50} className='animate-glow rounded-full shadow shadow-[0_0_25px_15px_#159f91]'/>
-                            </div>
-                            <div className='flex-1 border bg-white rounded-lg p-6'>
-                                <h1>Project1</h1>
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia ullam voluptas rerum iste qui, non a animi suscipit necessitatibus ut numquam saepe pariatur debitis magni excepturi alias, enim officiis doloribus?</p>
-                            </div>
-
                         </div>
-                    </AnimateElement>
+                    ))}
+                </div>
 
+                {/* More Projects CTA */}
+                <div className={`text-center mt-20 transition-all duration-1000 delay-400 ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}>
+                    <p className="text-gray-400 mb-6">Want to see more of my work?</p>
+                    <a
+                        href="https://github.com/vamsi-o"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-8 py-4 rounded-full glass border border-white/20 text-white font-semibold hover:bg-white/10 transition-all duration-300 group"
+                    >
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path fillRule="evenodd" d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.238 1.84 1.238 1.07 1.834 2.807 1.305 3.492.998.108-.775.418-1.305.76-1.605-2.665-.3-5.467-1.332-5.467-5.93 0-1.31.468-2.38 1.235-3.22-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23A11.52 11.52 0 0112 5.8c1.02.004 2.045.137 3.003.402 2.291-1.552 3.297-1.23 3.297-1.23.654 1.653.242 2.873.12 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.625-5.48 5.922.43.37.815 1.102.815 2.222 0 1.606-.015 2.896-.015 3.286 0 .32.216.694.825.576C20.565 21.796 24 17.297 24 12c0-6.63-5.37-12-12-12z" clipRule="evenodd" />
+                        </svg>
+                        Visit My GitHub
+                        <svg 
+                            className="w-4 h-4 group-hover:translate-x-1 transition-transform" 
+                            fill="none" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth="2" 
+                            viewBox="0 0 24 24" 
+                            stroke="currentColor"
+                        >
+                            <path d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </a>
                 </div>
             </div>
-            
-        </div>
-    </>
-  )
+        </section>
+    )
 }
 
 export default Projects

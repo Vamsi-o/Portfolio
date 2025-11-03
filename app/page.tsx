@@ -1,21 +1,22 @@
-import Footer from "./components/Footer";
-import HeroSection from "./components/Hero-Section";
-import NavBar from "./components/NavBar";
-import Projects from "./components/Projects";
-import ScrollingText from "./components/ScrollingText";
+import About from "./components/About"
+import Footer from "./components/Footer"
+import HeroSection from "./components/Hero-Section"
+import Projects from "./components/Projects"
 
 export default function Home() {
   return (
-    <>
-      <div className="w-full min-h-screen bg-[#090a15] flex flex-col gap-22">
-        {/* <NavBar /> */}
-        <HeroSection />
-        <Projects/>
-        <Footer/>
-
-
-      </div>
-
-    </>
-  );
+    <main className="w-full min-h-screen overflow-x-hidden">
+      {/* Hero Section with integrated navbar */}
+      <HeroSection />
+      
+      {/* About Section */}
+      <About />
+      
+      {/* Projects Section */}
+      <Projects />
+      
+      {/* Footer with Contact Form */}
+      <Footer />
+    </main>
+  )
 }
