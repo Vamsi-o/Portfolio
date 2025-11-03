@@ -98,7 +98,7 @@ const About = () => {
                             {/* Quick Stats */}
                             <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-white/10">
                                 <div>
-                                    <div className="text-2xl font-bold gradient-text">10+</div>
+                                    <div className="text-2xl font-bold gradient-text">3+</div>
                                     <div className="text-sm text-gray-400">Projects Built</div>
                                 </div>
                                 <div>
