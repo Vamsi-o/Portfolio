@@ -118,26 +118,51 @@ const About = () => {
                         isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
                     }`}>
                         <div className="relative">
-                            <div className="glass p-8 rounded-2xl">
-                                <div className="aspect-square rounded-xl bg-gradient-to-br from-[#6366f1] to-[#06b6d4] flex items-center justify-center relative overflow-hidden">
-                                    {/* Code Animation */}
-                                    <div className="absolute inset-0 opacity-20">
-                                        <div className="absolute top-4 left-4 text-white/40 text-sm font-mono">
+                            <div className="glass p-3 rounded-2xl border border-white/10 overflow-hidden backdrop-blur-sm">
+                                <div className="aspect-[4/5] rounded-xl relative overflow-hidden group shadow-2xl">
+                                    {/* Main Image */}
+                                    <img 
+                                        src="/12.jpeg" 
+                                        alt="Vamshi - Moving Through Life"
+                                        className="w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-105 group-hover:brightness-110"
+                                    />
+                                    
+                                    {/* Subtle Vignette Effect */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0b14]/80 via-transparent to-[#0a0b14]/20"></div>
+                                    
+                                    {/* Code Animation Overlay - Appears on Hover */}
+                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-[#6366f1]/10 to-[#06b6d4]/10">
+                                        <div className="absolute top-6 left-6 text-white/70 text-sm font-mono drop-shadow-lg animate-pulse">
                                             {'<code>'}
                                         </div>
-                                        <div className="absolute top-12 left-8 text-white/40 text-sm font-mono">
-                                            const dev = 'Vamshi';
+                                        <div className="absolute top-14 left-10 text-white/70 text-sm font-mono drop-shadow-lg animate-pulse" style={{ animationDelay: '0.2s' }}>
+                                            const journey = 'infinite';
                                         </div>
-                                        <div className="absolute bottom-4 right-4 text-white/40 text-sm font-mono">
+                                        <div className="absolute bottom-6 right-6 text-white/70 text-sm font-mono drop-shadow-lg animate-pulse" style={{ animationDelay: '0.4s' }}>
                                             {'</code>'}
                                         </div>
                                     </div>
-                                    <div className="text-8xl">👨‍💻</div>
+                                    
+                                    {/* Bottom Text Overlay */}
+                                    <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#0a0b14]/95 via-[#0a0b14]/70 to-transparent">
+                                        <p className="text-white font-bold text-lg font-display drop-shadow-lg">Moving Through Life</p>
+                                        <p className="text-gray-300 text-sm drop-shadow-md">Building the future, one step at a time</p>
+                                    </div>
+                                    
+                                    {/* Glow Effect on Hover */}
+                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                                        <div className="absolute inset-0 bg-gradient-to-tr from-[#6366f1]/5 via-transparent to-[#06b6d4]/5"></div>
+                                    </div>
                                 </div>
                             </div>
                             {/* Floating Elements */}
-                            <div className="absolute -top-4 -right-4 w-20 h-20 bg-[#6366f1] rounded-2xl opacity-50 blur-xl animate-float"></div>
-                            <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-[#06b6d4] rounded-2xl opacity-50 blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
+                            <div className="absolute -top-6 -right-6 w-32 h-32 bg-[#6366f1] rounded-full opacity-20 blur-3xl animate-float"></div>
+                            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-[#06b6d4] rounded-full opacity-20 blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+                            
+                            {/* Border Glow Effect */}
+                            <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                                <div className="absolute inset-0 rounded-2xl border border-[#6366f1]/30 blur-sm"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
