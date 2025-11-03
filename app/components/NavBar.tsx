@@ -14,7 +14,6 @@ export const NavBar = () => {
     }, [])
 
     const navLinks: Array<{ href: string; label: string; external?: boolean }> = [
-        { href: "#home", label: "Home" },
         { href: "#about", label: "About" },
         { href: "#projects", label: "Projects" },
         { href: "https://docs.google.com/document/d/e/2PACX-1vRe1fEf2dG5SeA1CH1y__myUNl0tt17wvHnUv-62Peik7VwdUqd3dqt9Vs11TH8i92K1uRDcF45BTXg/pub", label: "Resume", external: true },
@@ -52,15 +51,6 @@ export const NavBar = () => {
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-[#6366f1] to-[#06b6d4] group-hover:w-full transition-all duration-300"></span>
                             </a>
                         ))}
-                    </div>
-
-                    {/* CTA Button */}
-                    <div className="hidden md:block">
-                        <a href="#contact">
-                            <button className="px-6 py-2.5 rounded-full bg-linear-to-r from-[#6366f1] to-[#06b6d4] text-white font-semibold hover:shadow-lg hover:shadow-[#6366f1]/50 transition-all duration-300 transform hover:scale-105">
-                                Let's Talk
-                            </button>
-                        </a>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -101,11 +91,6 @@ export const NavBar = () => {
                                 {link.label}
                             </a>
                         ))}
-                        <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
-                            <button className="w-full px-6 py-2.5 rounded-full bg-linear-to-r from-[#6366f1] to-[#06b6d4] text-white font-semibold">
-                                Let's Talk
-                            </button>
-                        </a>
                     </div>
                 )}
             </div>

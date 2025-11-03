@@ -47,18 +47,18 @@ export const HeroSection = () => {
                     {/* Badge */}
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/20 text-sm text-gray-300 animate-slide-in-left">
                         <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        Available for freelance work
+                        Building innovative solutions
                     </div>
 
                     {/* Main Heading */}
                     <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display leading-tight">
-                        <span className="text-white block mb-2">From Idea to Scale.</span>
-                        <span className="gradient-text animate-gradient block">Simplified.</span>
+                        <span className="text-white block mb-2">Turning Ideas Into</span>
+                        <span className="gradient-text animate-gradient block">Reality.</span>
                     </h1>
 
                     {/* Subheading */}
                     <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed animate-slide-in-right">
-                        Ship at <span className="text-[#06b6d4] font-semibold">lightning speed</span> and scale to a global audience effortlessly with <span className="text-[#6366f1] font-semibold">next-gen AI integration</span>.
+                        Creating <span className="text-[#06b6d4] font-semibold">cutting-edge applications</span> that blend innovation with functionality, powered by <span className="text-[#6366f1] font-semibold">AI and modern web tech</span>.
                     </p>
 
                     {/* CTA Buttons */}
@@ -90,15 +90,15 @@ export const HeroSection = () => {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-8 pt-12 max-w-3xl mx-auto">
                         <div className="text-center">
                             <div className="text-3xl md:text-4xl font-bold gradient-text">10+</div>
-                            <div className="text-gray-400 text-sm md:text-base mt-1">Projects Completed</div>
+                            <div className="text-gray-400 text-sm md:text-base mt-1">Projects Built</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-3xl md:text-4xl font-bold gradient-text">5+</div>
-                            <div className="text-gray-400 text-sm md:text-base mt-1">Technologies</div>
+                            <div className="text-3xl md:text-4xl font-bold gradient-text">8+</div>
+                            <div className="text-gray-400 text-sm md:text-base mt-1">Tech Stack</div>
                         </div>
                         <div className="text-center col-span-2 md:col-span-1">
-                            <div className="text-3xl md:text-4xl font-bold gradient-text">100%</div>
-                            <div className="text-gray-400 text-sm md:text-base mt-1">Client Satisfaction</div>
+                            <div className="text-3xl md:text-4xl font-bold gradient-text">∞</div>
+                            <div className="text-gray-400 text-sm md:text-base mt-1">Learning Daily</div>
                         </div>
                     </div>
                 </div>

@@ -66,10 +66,10 @@ const About = () => {
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}>
                     <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">
-                        About <span className="gradient-text">Me</span>
+                        Know <span className="gradient-text">Me</span>
                     </h2>
                     <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                        Passionate developer crafting innovative solutions
+                        Builder. Innovator. Learner.
                     </p>
                 </div>
 
@@ -85,29 +85,29 @@ const About = () => {
                             </h3>
                             <div className="space-y-4 text-gray-300 leading-relaxed">
                                 <p>
-                                    I'm a <span className="text-[#6366f1] font-semibold">Full Stack Developer</span> and <span className="text-[#06b6d4] font-semibold">AI enthusiast</span> who loves building scalable web applications that make a difference.
+                                    I'm an <span className="text-[#6366f1] font-semibold">innovative developer</span> and <span className="text-[#06b6d4] font-semibold">tech enthusiast</span> who loves building creative solutions with modern web technologies.
                                 </p>
                                 <p>
-                                    With expertise in modern web technologies and AI integration, I transform ideas into production-ready applications. My focus is on creating seamless user experiences backed by robust, efficient code.
+                                    I dive deep into cutting-edge tech stacks, experimenting with AI integration, full-stack development, and creating applications that push boundaries. My projects reflect my passion for learning and building.
                                 </p>
                                 <p>
-                                    I'm constantly exploring new technologies and best practices to deliver cutting-edge solutions that solve real-world problems.
+                                    Currently exploring the intersection of AI and web development, I'm driven by curiosity and the desire to create impactful digital experiences.
                                 </p>
                             </div>
 
                             {/* Quick Stats */}
                             <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-white/10">
                                 <div>
-                                    <div className="text-2xl font-bold gradient-text">2+</div>
-                                    <div className="text-sm text-gray-400">Years Exp.</div>
-                                </div>
-                                <div>
                                     <div className="text-2xl font-bold gradient-text">10+</div>
-                                    <div className="text-sm text-gray-400">Projects</div>
+                                    <div className="text-sm text-gray-400">Projects Built</div>
                                 </div>
                                 <div>
-                                    <div className="text-2xl font-bold gradient-text">5+</div>
-                                    <div className="text-sm text-gray-400">Tech Stack</div>
+                                    <div className="text-2xl font-bold gradient-text">8+</div>
+                                    <div className="text-sm text-gray-400">Technologies</div>
+                                </div>
+                                <div>
+                                    <div className="text-2xl font-bold gradient-text">∞</div>
+                                    <div className="text-sm text-gray-400">Ideas</div>
                                 </div>
                             </div>
                         </div>
