@@ -12,7 +12,6 @@ export default function Home() {
       {/* About Section */}
       <About />
       
-      {/* Projects Section */}
       <Projects />
       
       {/* Footer with Contact Form */}
