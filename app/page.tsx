@@ -14,7 +14,6 @@ export default function Home() {
       
       <Projects />
       
-      {/* Footer with Contact Form */}
       <Footer />
     </main>
   )
