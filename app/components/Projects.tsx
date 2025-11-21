@@ -96,6 +96,16 @@ const Projects = () => {
     }, [])
 
     const projects = [
+          {
+            title: 'Draw-GPT',
+            description: 'A real-time collaborative drawing app with persistent shapes and user auth. Generative-AI shape generation is planned..',
+            image: '/Screenshot from 2025-11-21 21-20-57.png',
+            logo: '/Screenshot from 2025-11-21 21-20-57.png',
+            tags: ['Next js', 'Type Script', 'Web Sockets', 'FastAPI', 'Docker','AWS'],
+            link: 'https://draw-gpt-web-gd84.vercel.app/',
+            github: 'https://github.com/Vamsi-o/Draw-Gpt',
+            gradient: 'from-purple-500 to-pink-500'
+        },
         {
             title: 'HireHawk',
             description: 'An AI-powered recruitment platform that streamlines the hiring process. Features intelligent candidate matching, automated screening, and real-time analytics to help companies find the perfect talent faster.',
@@ -116,16 +126,7 @@ const Projects = () => {
             github: 'https://github.com/Vamsi-o/SocialMedia-Post-Generator',
             gradient: 'from-purple-500 to-pink-500'
         },
-          {
-            title: 'Draw-GPT',
-            description: 'A real-time collaborative drawing app with persistent shapes and user auth. Generative-AI shape generation is planned..',
-            image: '/Screenshot from 2025-11-21 21-20-57.png',
-            logo: '/Screenshot from 2025-11-21 21-20-57.png',
-            tags: ['Next js', 'Type Script', 'Web Sockets', 'FastAPI', 'Docker','AWS'],
-            link: 'https://draw-gpt-web-gd84.vercel.app/',
-            github: 'https://github.com/Vamsi-o/Draw-Gpt',
-            gradient: 'from-purple-500 to-pink-500'
-        }
+        
     ]
 
     return (
