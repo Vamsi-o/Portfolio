@@ -91,11 +91,11 @@ export const Footer = () => {
                                 </svg>
                             </SocialIcon>
 
-                            <SocialIcon href="https://t.me/vamsi" label="Telegram">
+                            {/* <SocialIcon href="https://t.me/DarkKnight" label="Telegram">
                                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M21.5 3.1L2.9 10.1c-.9.3-.9 1.1-.1 1.4l4 1.3 1.6 4.9c.3.9 1.1.9 1.5.1L13 14l6.4 4.7c.9.6 1.7.2 1.9-1.1L22.6 4.2c.2-1.3-.6-1.8-1.1-1.1zM8.6 13.3l6.6-5.1-7.4 3.2 1.3 1.9z" />
                                 </svg>
-                            </SocialIcon>
+                            </SocialIcon> */}
                         </div>
                     </div>
                 </div>
