@@ -99,6 +99,9 @@ export const Footer = () => {
                     </div>
                 </div>
 
+
+
+
                 {/* Footer Bottom */}
                 <div className="pt-8 border-t border-white/10">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
