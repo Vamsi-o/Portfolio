@@ -15,19 +15,18 @@ export const NavBar = () => {
 
     const navLinks: Array<{ href: string; label: string; external?: boolean; highlight?: boolean }> = [
         { href: "#projects", label: "Projects" },
-        { href: "https://docs.google.com/document/d/e/2PACX-1vRe1fEf2dG5SeA1CH1y__myUNl0tt17wvHnUv-62Peik7VwdUqd3dqt9Vs11TH8i92K1uRDcF45BTXg/pub", label: "Resume", external: true },
+        { href: "https://docs.google.com/document/d/1ZhCljcBVaV0xCaVn0Wd4fvX4kzC_Qb1Uv5K5y6eKHhg/edit?tab=t.0", label: "Resume", external: true },
         { href: "#contact", label: "Contact Me", highlight: true },
     ]
 
     return (
-        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300  ${
-            isScrolled ? 'py-4' : 'py-6'
-        }`}>
+        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300  ${isScrolled ? 'py-4' : 'py-6'
+            }`}>
             <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
                 // force-remove any border the glass-dark class may add using Tailwind important
                 isScrolled ? 'glass-dark rounded-2xl backdrop-blur' : ''
-            }`
-        }
+                }`
+            }
             >
                 <div className="flex justify-between items-center py-3">
                     {/* Logo */}
