@@ -100,8 +100,8 @@ const Projects = () => {
         {
             title: 'Draw-GPT',
             description: 'A real-time collaborative drawing app with persistent shapes and user auth. Generative-AI shape generation is planned..',
-            image: '/Screenshot from 2025-11-21 21-20-57.png',
-            logo: '/Screenshot from 2025-11-21 21-20-57.png',
+            image: '/image copy.png',
+            logo: '/image copy.png',
             tags: ['Next js', 'Type Script', 'Web Sockets', 'FastAPI', 'Docker', 'AWS'],
             link: 'https://draw-gpt-web-gd84.vercel.app/',
             github: 'https://github.com/Vamsi-o/Draw-Gpt',
